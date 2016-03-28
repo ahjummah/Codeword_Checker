@@ -32,14 +32,13 @@ public class Codeword_Checker {
 
     private boolean check(String input, int choice) {
         StringBuilder build = new StringBuilder();
-        boolean flag;
+        boolean flag = true;
         String db = getBits(input, 1);
         String pb = getBits(input, 2);
         build.append(input);
         int two = 1;
         int error = 0;
 
-        boolean hasError = false;
         for (int i = 0; i < build.length(); i++) {
             char cb;
             if (i == (two - 1)) {
@@ -67,18 +66,11 @@ public class Codeword_Checker {
 
                 if (cb != pb.charAt(i)) {
                     error += pos;
-                    hasError = true;
+                    flag = false;
                 }
                 two *= 2;
 
             }
-        }
-        if (!hasError) {
-            System.out.println("Data correct");
-            flag = true;
-        } else {
-            System.out.println("\nError at: " + error);
-            flag = false;
         }
         return flag;
     }
