@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
  *
  * @author Jessa
@@ -23,7 +24,7 @@ public class Codeword_Checker {
 
     private boolean check(String input, int choice) {
         StringBuilder build = new StringBuilder();
-        boolean flag = false;
+        boolean hasError = false;
         String db = getBits(input, 1);
         String pb = getBits(input, 2);
         build.append(input);
@@ -57,38 +58,39 @@ public class Codeword_Checker {
 
                 if (x != pb.charAt(i)) {
                     error += p;
-                    flag = true;
+                    hasError = true;
                 }
                 two *= 2;
             }
         }
-        if (flag) {
-            System.out.println("Invalid: " + error);
-        } else {
+        if (!hasError) {
             System.out.println("Valid");
+            return true;
+        } else {
+            System.out.println("Invalid: " + error);
+            return false;
         }
-        return flag;
     }
 
-    private String getBits(String input, int i) {
+    private String getBits(String input, int k) {
         StringBuilder tmp = new StringBuilder();
         String db = input;
         tmp.append(db);
 
         int two = 1;
-        if (i == 1) {
-            for (int j = 0; j < input.length(); j++) {
-                if ((two - 1) == j) {
-                    tmp.replace(i, i + 1, "_");
+        if (k == 1) {
+            for (int i = 0; i < input.length(); i++) {
+                if (i == (two - 1)) {
+                    tmp.replace(i, i + 1, "?");
                     two *= 2;
                 }
             }
         } else {
-            for (int j = 0; j < input.length(); j++) {
-                if ((two - 1) == j) {
+            for (int i = 0; i < input.length(); i++) {
+                if (i == (two - 1)) {
                     two *= 2;
                 } else {
-                    tmp.replace(j, j + 1, "_");
+                    tmp.replace(i, i + 1, "?");
                 }
             }
         }
